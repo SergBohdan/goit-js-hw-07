@@ -1,40 +1,32 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
+const gallery = document.querySelector('.gallery');
 
-
-
-console.log(galleryItems);
-
-
-// function createGalleryItemMarkup({ preview, original, description }) {
-//   return `
-//     <li class="gallery__item">
-//       <a class="gallery__link" href="${original}">
-//         <img
-//           class="gallery__image"
-//           src="${preview}"
-//           data-source="${original}"
-//           alt="${description}"
-//         />
-//       </a>
-//     </li>
-//   `;
-// }
-
-// function openModal(event) {
-//   event.preventDefault();
-//   if (event.target.nodeName !== 'IMG') {
-//     return;
-//   }
+function createMarkup(items) {
+    return items
+      .map(({ preview, original, description }) => {
+        return `
+          <li class="gallery__item">
+            <a class="gallery__link" href="${original}">
+              <img class="gallery__image" src="${preview}" alt="${description}" width="2000" 
+              height="900" />
+            </a>
+          </li>
+        `;
+      })
+      .join('');
+  }
   
-//   const imageSrc = event.target.dataset.source;
-//   const instance = basicLightbox.create(`<img width="2000" height="900" src="${imageSrc}" alt="" />`);
-//   instance.show();
-// }
+  
+  const galleryMarkup = createMarkup(galleryItems);
+  gallery.innerHTML = galleryMarkup;
+  
+  const lightbox = new SimpleLightbox('.gallery a', {
+    captionsData: 'alt',
+    captionDelay: 250,
+    captionPosition: 'bottom'
+  });
 
-// gallery.innerHTML = galleryItems
-//   .map(item => createGalleryItemMarkup(item))
-//   .join('');
+  
 
-// gallery.addEventListener('click', openModal);
-// console.log(basicLightbox);
+ 
